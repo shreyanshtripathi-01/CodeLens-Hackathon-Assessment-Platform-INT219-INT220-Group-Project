@@ -1,45 +1,101 @@
 # INT_219_220_Project
+
 CodeLens is a collaborative group project that provides a secure online assessment platform for evaluating hackathon candidates. Built with PHP, MySQL, and Tailwind CSS, it features real-time proctoring, automated scoring, and detailed analytics. Admins can create tests while candidates can take assessments in a monitored environment.
+
+---
+
+## 🚀 Key Features (2025 Update)
+
+### For Administrators
+- Create, edit, and manage test questions with correct answers and difficulty levels
+- Set up tests: duration, passing score, and question selection
+- Monitor test attempts in real-time
+- View detailed analytics and candidate performance reports
+- Categorize questions by topic and difficulty
+- Track candidate performance metrics
+
+### For Candidates
+- Register and login securely
+- Take proctored tests with a timer and automatic time tracking
+- Receive immediate, detailed test results (including correct/incorrect answers, correct options, and feedback)
+- Review past test attempts and performance statistics
+- Access practice materials and mock tests
+
+---
+
+## 🛠️ Technology Stack
+
+**Frontend:**  
+- HTML5  
+- Tailwind CSS  
+- JavaScript  
+- Chart.js (analytics visualization)
+
+**Backend:**  
+- PHP  
+- MySQL  
+- PDO for database operations
+
+---
+
+## 📁 Project Structure
+
+```
+/Frontend
+    /Pages          # All PHP pages for UI (login, dashboard, test, results, admin, etc.)
+    /src            # CSS (Tailwind), JS, and static assets
+/Backend
+    /PHP            # All backend PHP scripts (auth, DB, test logic, etc.)
+README.md           # Project documentation
+```
+
+---
+
+## 🗄️ Database Schema
+
+- Users Table
+- Questions Table (with correct_option)
+- Tests Table
+- Test Attempts Table (tracks score, correct answers, time taken)
+- User Answers Table (tracks selected answers per question)
+
+---
+
+## ⚡ Usage
+
+1. Clone the repo and set up XAMPP/LAMP.
+2. Import the provided SQL schema.
+3. Update database credentials in `/Backend/PHP/config.php`.
+4. Access the platform via your localhost.
+
+---
+
+## 📝 Recent Changes
+
+- Fixed: Correct answers now display properly on the results page.
+- Improved: Time tracking and scoring logic.
+- Enhanced: User feedback for each question (shows selected and correct options).
+- Updated: Admin and candidate dashboards.
+
+---
+
+## 🤝 Contributing
+
+Feel free to open issues or submit pull requests!
+
+---
+
+## 📜 License
+
+MIT
+
+---
 
 # CodeLens - Online Assessment Platform
 
 CodeLens is a web-based proctored examination system designed specifically for conducting hackathon candidate assessments. The platform provides a secure and efficient way to evaluate candidates through standardized tests.
 
-## Features
-
-### For Administrators
-- Create and manage test questions
-- Set up test parameters (duration, passing score)
-- Monitor test attempts in real-time
-- View detailed analytics and performance reports
-- Categorize questions by topic and difficulty
-- Track candidate performance metrics
-
-### For Candidates
-- User-friendly registration and login system
-- Take proctored tests with timer
-- View immediate test results and feedback
-- Track personal performance history
-- Access practice tests and materials
-
-## Technology Stack
-
-### Frontend
-- HTML5
-- Tailwind CSS
-- JavaScript
-- Chart.js (for analytics visualization)
-
-### Backend
-- PHP
-- MySQL Database
-- PDO for database operations
-
-## Project Structure
--[To be updated]
-
-
-## Database Schema
+## Database Schema Example
 
 ### Users Table
 ```sql
