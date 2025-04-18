@@ -1,4 +1,4 @@
-# INT_219_220_Project
+# Code Lens: Hackathon Assessment Platform - INT219 & INT220 Group Project
 
 CodeLens is a collaborative group project that provides a secure online assessment platform for evaluating hackathon candidates. Built with PHP, MySQL, and Tailwind CSS, it features real-time proctoring, automated scoring, and detailed analytics. Admins can create tests while candidates can take assessments in a monitored environment.
 
@@ -91,9 +91,9 @@ MIT
 
 ---
 
-# CodeLens - Online Assessment Platform
+# Code Lens: Hackathon Assessment Platform
 
-CodeLens is a web-based proctored examination system designed specifically for conducting hackathon candidate assessments. The platform provides a secure and efficient way to evaluate candidates through standardized tests.
+CodeLens is a web-based proctored examination system designed specifically for conducting hackathon candidate assessments as part of the INT219 & INT220 Group Project. The platform provides a secure and efficient way to evaluate candidates through standardized tests.
 
 ## Database Schema Example
 
