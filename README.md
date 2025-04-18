@@ -187,16 +187,16 @@ git clone https://github.com/shreyanshtripathi-01/INT_219_220_Project
   GitHub: [@shreyanshtripathi-01](https://github.com/shreyanshtripathi-01)
 
 - Shraddha Gupta
-  Contact: 14shreyansh2006@gmail.com
-  GitHub: [@shreyanshtripathi-01](https://github.com/shreyanshtripathi-01)
+  Contact: gshraddha246850@gmail.com
+  GitHub: [@Shraddhagupta37](https://github.com/Shraddhagupta37)
 
 - Khushi Gupta
-  Contact: 14shreyansh2006@gmail.com
-  GitHub: [@shreyanshtripathi-01](https://github.com/shreyanshtripathi-01)
+  Contact: kg677579@gmail.com
+  GitHub: [@KhushiGupta113](https://github.com/KhushiGupta113)
 
 - Aastha Kumari
   Contact: 14shreyansh2006@gmail.com
-  GitHub: [@shreyanshtripathi-01](https://github.com/shreyanshtripathi-01)
+  GitHub: [@aasthakumari5551](https://github.com/aasthakumari5551)
 
 ## Acknowledgments
 
