@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require_once '../../Backend/PHP/auth.php';
 require_once '../../Backend/PHP/config.php';
 requireLogin();
@@ -13,7 +16,7 @@ $userName = $_SESSION['user_name'];
 $userUID = $_SESSION['user_uid'];
 $userId = $_SESSION['user_id'];
 
-// Fetch all test attempts by the user
+// Fetch all unique completed test attempts by the user
 try {
     $stmt = $pdo->prepare("
         SELECT ta.*, t.title, t.description, t.passing_score
@@ -23,9 +26,9 @@ try {
         ORDER BY ta.completed_at DESC
     ");
     $stmt->execute([$userId]);
-    $attempts = $stmt->fetchAll();
-} catch (PDOException $e) {
-    $error = "Error fetching test attempts: " . $e->getMessage();
+    $attempts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+    $error = "Failed to fetch test results.";
     $attempts = [];
 }
 

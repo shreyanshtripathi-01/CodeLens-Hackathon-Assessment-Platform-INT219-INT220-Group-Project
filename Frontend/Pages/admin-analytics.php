@@ -11,10 +11,14 @@ if ($_SESSION['user_role'] !== 'admin') {
 
 // Fetch analytics data
 try {
-    // Get overall statistics
+    // Get total candidates (all users with role 'candidate')
+    $stmt = $pdo->query("SELECT COUNT(*) as total_candidates FROM users WHERE role = 'candidate'");
+    $candidatesRow = $stmt->fetch();
+    $totalCandidates = $candidatesRow['total_candidates'];
+
+    // Get overall statistics for attempts, average score, and tests
     $stmt = $pdo->query("
         SELECT 
-            COUNT(DISTINCT ta.user_id) as total_candidates,
             COUNT(ta.id) as total_attempts,
             AVG(ta.score) as average_score,
             COUNT(DISTINCT t.id) as total_tests
@@ -22,6 +26,7 @@ try {
         JOIN tests t ON ta.test_id = t.id
     ");
     $stats = $stmt->fetch();
+    $stats['total_candidates'] = $totalCandidates;
 
     // Get category-wise performance
     $stmt = $pdo->query("
@@ -59,9 +64,19 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/Frontend/src/tailwind.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Analytics Dashboard - CodeLens</title>
+<style>
+@keyframes fadein {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fadein { animation: fadein 0.8s ease; }
+</style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gradient-to-br from-amber-100 via-amber-200 to-amber-400 min-h-screen animate-fadein">
+
+
+    <title>Analytics Dashboard - CodeLens</title>
+
     <!-- Navigation -->
     <nav class="bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4">

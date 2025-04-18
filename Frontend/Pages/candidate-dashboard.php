@@ -60,19 +60,21 @@ $userUID = $_SESSION['user_uid'];
             <a href="my-results.php" class="block bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-amber-500">
     <div class="text-gray-500 text-sm">Tests Completed</div>
     <div class="text-3xl font-bold text-gray-800"><?php
-    // Tests Completed
-    $stmt = $pdo->prepare("SELECT COUNT(*) FROM test_attempts WHERE user_id = ?");
-    $stmt->execute([$_SESSION['user_id']]);
-    echo $stmt->fetchColumn();
+    // Tests Completed (all attempts)
+    $userId = $_SESSION['user_id'];
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM test_attempts ta JOIN tests t ON ta.test_id = t.id WHERE ta.user_id = ?");
+    $stmt->execute([$userId]);
+    $testsCompleted = $stmt->fetchColumn();
+    echo $testsCompleted;
 ?></div>
     <div class="text-amber-500 text-sm font-bold">View Results →</div>
 </a>
             <a href="my-results.php#performance" class="block bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-amber-500">
     <div class="text-gray-500 text-sm">Average Score</div>
     <div class="text-3xl font-bold text-gray-800"><?php
-    // Average Score
-    $stmt = $pdo->prepare("SELECT AVG(score) FROM test_attempts WHERE user_id = ?");
-    $stmt->execute([$_SESSION['user_id']]);
+    // Average Score (all attempts)
+    $stmt = $pdo->prepare("SELECT AVG(ta.score) FROM test_attempts ta JOIN tests t ON ta.test_id = t.id WHERE ta.user_id = ?");
+    $stmt->execute([$userId]);
     $avg = $stmt->fetchColumn();
     echo $avg !== null ? round($avg, 2) . '%' : '0%';
 ?></div>

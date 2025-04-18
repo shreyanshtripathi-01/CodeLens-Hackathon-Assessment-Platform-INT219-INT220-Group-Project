@@ -40,8 +40,15 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/Frontend/src/tailwind.css" rel="stylesheet">
     <title>Admin Dashboard - CodeLens</title>
+<style>
+@keyframes fadein {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fadein { animation: fadein 0.8s ease; }
+</style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gradient-to-br from-amber-100 via-amber-200 to-amber-400 min-h-screen animate-fadein">
     <!-- Navigation -->
     <nav class="bg-white/70 backdrop-blur border-b border-amber-100 shadow-lg sticky top-0 z-30">
         <div class="max-w-7xl mx-auto px-4">
@@ -96,6 +103,7 @@ try {
     <h3 class="text-lg font-semibold mb-2">Candidates</h3>
     <span class="text-3xl font-extrabold text-gray-900 mb-2"><?php echo isset($registeredCandidates) ? $registeredCandidates : 0; ?></span>
     <span class="text-sm text-gray-500">Registered users</span>
+
 </div>
 
                 </div>

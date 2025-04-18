@@ -41,7 +41,13 @@ require_once dirname(__FILE__) . '/../Backend/PHP/config.php';
         echo "<a href='Pages/login.php' class='relative text-gray-700 hover:text-amber-600 transition-colors duration-200 after:content-[\'\'] after:block after:h-0.5 after:bg-amber-600 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left'>Dashboard</a>";
     }
 ?>
-                    <a href="Pages/mock-test.php" class="relative text-gray-700 hover:text-amber-600 transition-colors duration-200 after:content-[\'\'] after:block after:h-0.5 after:bg-amber-600 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">Mock Test</a>
+                    <?php
+if (isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+    echo "<a href=\"#\" onclick=\"alert('Admins cannot take the mock tests');return false;\" class='relative text-gray-700 hover:text-amber-600 transition-colors duration-200 after:content-[\'\'] after:block after:h-0.5 after:bg-amber-600 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left'>Mock Test</a>";
+} else {
+    echo "<a href='Pages/take-test.php?test_id=1' class='relative text-gray-700 hover:text-amber-600 transition-colors duration-200 after:content-[\'\'] after:block after:h-0.5 after:bg-amber-600 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left'>Mock Test</a>";
+}
+?>
                     <a href="Pages/about.php" class="relative text-gray-700 hover:text-amber-600 transition-colors duration-200 after:content-[\'\'] after:block after:h-0.5 after:bg-amber-600 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">About</a>
                 </div>
 

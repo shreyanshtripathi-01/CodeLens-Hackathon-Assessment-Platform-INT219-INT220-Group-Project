@@ -104,8 +104,15 @@ $categories = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/Frontend/src/tailwind.css" rel="stylesheet">
     <title>Manage Questions - CodeLens</title>
+<style>
+@keyframes fadein {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fadein { animation: fadein 0.8s ease; }
+</style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gradient-to-br from-amber-100 via-amber-200 to-amber-400 min-h-screen animate-fadein">
     <!-- Navigation -->
     <nav class="bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4">

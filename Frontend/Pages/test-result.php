@@ -132,34 +132,70 @@ $passed = $score >= $attempt['passing_score'];
                 <div class="p-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div>
+                            <h3 class="text-sm font-medium text-gray-500">Violation Counts</h3>
+<p class="mt-1 text-lg font-semibold">
+    <?php 
+        $fullscreen_violations = isset($attempt['fullscreen_violations']) ? $attempt['fullscreen_violations'] : 0;
+        $tab_violations = isset($attempt['tab_violations']) ? $attempt['tab_violations'] : 0;
+        echo "Fullscreen: <span class='text-red-600'>" . $fullscreen_violations . "</span><br>Tab & Window: <span class='text-red-600'>" . $tab_violations . "</span>";
+    ?>
+</p>
+                        </div>
+                        <div>
                             <h3 class="text-sm font-medium text-gray-500">Date Completed</h3>
                             <p class="mt-1 text-lg font-semibold"><?php echo date('M d, Y - H:i', strtotime($attempt['completed_at'])); ?></p>
                         </div>
                         
                         <div>
                             <h3 class="text-sm font-medium text-gray-500">Time Taken</h3>
-                            <p class="mt-1 text-lg font-semibold">
-                                <?php 
-                                    $timeTaken = isset($attempt['time_taken']) ? $attempt['time_taken'] : 0;
-                                    $minutes = floor($timeTaken / 60);
-                                    $seconds = $timeTaken % 60;
-                                    echo $minutes . "m " . $seconds . "s";
-                                ?>
-                                <span class="text-sm text-gray-500">
-                                    (out of <?php echo floor($attempt['duration'] / 60); ?>m)
-                                </span>
-                            </p>
+<p class="mt-1 text-lg font-semibold">
+    <?php 
+        $timeTaken = isset($attempt['time_taken']) ? intval($attempt['time_taken']) : 0;
+        // Calculate total duration in seconds
+        // Always use the test's original duration as source of truth for 'out of' time
+        $totalDuration = 0;
+        if (!empty($attempt['t.duration']) && intval($attempt['t.duration']) > 0) {
+            $totalDuration = intval($attempt['t.duration']) * 60; // from tests (minutes)
+        } elseif (!empty($attempt['duration']) && intval($attempt['duration']) > 0) {
+            $totalDuration = intval($attempt['duration']); // fallback to test_attempts (seconds)
+        }
+        // Cap timeTaken at totalDuration for display
+        if ($totalDuration > 0 && $timeTaken > $totalDuration) {
+            $timeTaken = $totalDuration;
+        }
+        $minutes = floor($timeTaken / 60);
+        $seconds = $timeTaken % 60;
+        $totalMinutes = ($totalDuration > 0) ? floor($totalDuration / 60) : '--';
+        $totalSeconds = ($totalDuration > 0) ? ($totalDuration % 60) : '';
+        echo $minutes . "m " . $seconds . "s";
+    ?>
+</p>
                         </div>
                         
                         <div>
-                            <h3 class="text-sm font-medium text-gray-500">Score</h3>
-                            <p class="mt-1 text-lg font-semibold">
-                                <?php echo $score; ?>%
-                                <span class="text-sm text-gray-500">
-                                    (<?php echo isset($attempt['correct_answers']) ? $attempt['correct_answers'] : 0; ?>/<?php echo $attempt['total_questions']; ?>)
-                                </span>
-                            </p>
-                        </div>
+    <h3 class="text-sm font-medium text-gray-500">Score</h3>
+    <p class="mt-1 text-lg font-semibold">
+        <?php echo $score; ?>%
+        <span class="text-sm text-gray-500">
+            (<?php echo isset($attempt['correct_answers']) ? $attempt['correct_answers'] : 0; ?>/<?php echo $attempt['total_questions']; ?>)
+        </span>
+    </p>
+</div>
+<div>
+    <h3 class="text-sm font-medium text-gray-500">Skipped</h3>
+    <p class="mt-1 text-lg font-semibold">
+        <?php 
+            $skippedAnswers = 0;
+            foreach ($questions as $question) {
+                if (empty($question['selected_option'])) {
+                    $skippedAnswers++;
+                }
+            }
+            echo $skippedAnswers;
+        ?>
+        <span class="text-sm text-gray-500">question(s)</span>
+    </p>
+</div>
                         
                         <div>
                             <h3 class="text-sm font-medium text-gray-500">Result</h3>
