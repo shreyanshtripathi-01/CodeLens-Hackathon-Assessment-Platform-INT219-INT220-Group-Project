@@ -6,13 +6,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fullname = trim($_POST['fullname']);
     $email = trim($_POST['email']);
     $uid = trim($_POST['uid']);
+    $country_code = trim($_POST['country_code']);
     $phone = trim($_POST['phone']);
+    $full_phone = $country_code . $phone; // Store as international format
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     $role = $_POST['role'];
 
     // Validation
-    if (empty($fullname) || empty($email) || empty($uid) || empty($phone) || empty($password)) {
+    if (empty($fullname) || empty($email) || empty($uid) || empty($country_code) || empty($phone) || empty($password)) {
         redirectWith('/Frontend/Pages/register.php', 'All fields are required');
     }
 
@@ -20,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirectWith('/Frontend/Pages/register.php', 'Invalid email format');
     }
 
-    if (!preg_match("/^[6-9][0-9]{9}$/", $phone)) {
+    // Validate phone: allow 5-15 digits (international)
+    if (!preg_match("/^[0-9]{5,15}$/", $phone)) {
         redirectWith('/Frontend/Pages/register.php', 'Invalid phone number');
     }
 
@@ -45,8 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert user
+        // Store full phone as international (country code + number)
         $stmt = $pdo->prepare("INSERT INTO users (fullname, uid, email, phone, password, role) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$fullname, $uid, $email, $phone, $hashed_password, $role]);
+        $stmt->execute([$fullname, $uid, $email, $full_phone, $hashed_password, $role]);
 
         redirectWith('/Frontend/Pages/login.php', 'Registration successful! Please login.', 'success');
 

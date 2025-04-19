@@ -1,47 +1,16 @@
 <?php
 $host = 'localhost';
-$username = 'root';  // Default XAMPP username
-$password = '';      // Default XAMPP password
+$dbname = 'codelens'; // Change this to your local database name if different
+$username = 'root';
+$password = '';
 
 try {
-    // First connect without specifying a database
-    $pdo = new PDO("mysql:host=$host", $username, $password);
+    // Connect directly to the InfinityFree database
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    // Create database if it doesn't exist
-    $pdo->exec("CREATE DATABASE IF NOT EXISTS codelens");
-    
-    // Select the database
-    $pdo->exec("USE codelens");
-    
-    // Drop existing users table if you want to recreate it
-    // $pdo->exec("DROP TABLE IF EXISTS users");
-    
-    // Create users table with all required columns
-    $sql = "CREATE TABLE IF NOT EXISTS users (
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        fullname VARCHAR(100) NOT NULL,
-        uid VARCHAR(50) NOT NULL UNIQUE,
-        email VARCHAR(100) UNIQUE NOT NULL,
-        phone VARCHAR(15) NOT NULL,
-        password VARCHAR(255) NOT NULL,
-        role ENUM('admin', 'candidate') NOT NULL DEFAULT 'candidate',
-        remember_token VARCHAR(64) DEFAULT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )";
-    
-    $pdo->exec($sql);
+    // No need to create or select the database, just connect
+    // Remove all table creation and alteration code for production
 
-    // Add missing columns if they don't exist
-    try {
-        $pdo->exec("ALTER TABLE users 
-            ADD COLUMN IF NOT EXISTS uid VARCHAR(50) UNIQUE AFTER fullname,
-            ADD COLUMN IF NOT EXISTS role ENUM('admin', 'candidate') NOT NULL DEFAULT 'candidate' AFTER password");
-    } catch(PDOException $e) {
-        // Columns might already exist, ignore the error
-    }
-
-    // Create questions table
     $sql2 = "CREATE TABLE IF NOT EXISTS questions (
         id INT PRIMARY KEY AUTO_INCREMENT,
         admin_id INT NOT NULL,
@@ -103,11 +72,7 @@ try {
         FOREIGN KEY (question_id) REFERENCES questions(id)
     )";
 
-    $pdo->exec($sql2);
-    $pdo->exec($sql3);
-    $pdo->exec($sql4);
-    $pdo->exec($sql5);
-    $pdo->exec($sql6);
+    // Table creation code removed for production
 
 } catch(PDOException $e) {
     die("Connection failed: " . $e->getMessage());
